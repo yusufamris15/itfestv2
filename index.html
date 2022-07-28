@@ -74,7 +74,7 @@
     <section class="section bg-home home-half" id="home" data-image-src="images/bg-home.jpg">
       <div class="bg-overlay"></div>
       <div class="container">
-        <div class="row justify-content-center ">
+        <div class="row justify-content-center">
           <div class="col-lg-8 text-white text-center">
             <h4 class="home-small-title">The Biggest Govt Tect Event</h4>
             <h1 class="home-title">IT Fest DJPb 2022</h1>
@@ -83,7 +83,7 @@
             <p class="pt-3 home-desc mx-auto">Beyond Digital Treasury</p>
             <p class="mb-10 home-desc mx-auto">Through Smart Treasury</p>
             <a href="https://www.instagram.com/p/CgLTadrhR1_/" target="_blank" class="btn btn-primary mt-4 btn-rounded waves-effect waves-light">Watch Teaser</a>
-            
+
             <!-- <p class="play-shadow mt-4" data-bs-toggle="modal" data-bs-target="#watchvideomodal">
               <a href="javascript: void(0);" class="play-btn video-play-icon"><i class="mdi mdi-play text-center"></i></a>
             </p> -->
@@ -585,19 +585,47 @@
     <!-- END BLOG -->
 
     <!-- CONTACT FORM START-->
-    <!-- <section class="section " id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <h1 class="section-title text-center">Get In Touch</h1>
-                    <div class="section-title-border mt-3"></div>
-                    <p class="section-subtitle text-muted text-center font-secondary pt-4">We thrive when coming up with
-                        innovative ideas but also understand that a smart concept should be supported with faucibus
-                        sapien odio measurable
-                        results.</p>
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <h1 class="section-title text-center">Get In Touch</h1>
+            <div class="section-title-border mt-3"></div>
+            <p class="section-subtitle text-muted text-center font-secondary pt-4">We thrive when coming up with innovative ideas but also understand that a smart concept should be supported with faucibus sapien odio measurable results.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                <strong>Terimakasih!</strong> Pesan Anda sudah diterima.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+              <form name="itfest-message-form">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Kode Satker</label>
+                  <input type="number" class="form-control" id="name" aria-describedby="name" name="kodeSatker" placeholder="Masukkan 6 digit kode Satker Anda" max="999999" min="1" />
                 </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" placeholder="Masukkan email satker Anda" />
+                </div>
+                <div class="mb-3">
+                  <label for="pesan" class="form-label">Pesan</label>
+                  <textarea class="form-control" id="pesan" rows="3" name="pesan"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
+
+                <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  Loading...
+                </button>
+              </form>
             </div>
-            <div class="row">
+          </div>
+        </div>
+        <!-- <div class="row">
                 <div class="col-lg-4">
                     <div class="mt-4 pt-4">
                         <p class="mt-4"><span class="h5">Office Address 1:</span><br> <span
@@ -653,9 +681,9 @@
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section> -->
+            </div> -->
+      </div>
+    </section>
     <!-- CONTACT FORM END-->
 
     <!--START FOOTER-->
@@ -790,6 +818,35 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/smooth-scroll.polyfills.min.js"></script>
     <script src="js/gumshoe.polyfills.min.js"></script>
+    <!-- form js -->
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyoHmbO0EYwTP5mS5z-l0RLG-YoaCiQeqyUQdmm7IIafNqX6Y4WLlMjoLIWywCh_xXf/exec';
+      const form = document.forms['itfest-message-form'];
+      const btnKirim = document.querySelector('.btn-kirim');
+      const btnLoading = document.querySelector('.btn-loading');
+      const myAlert = document.querySelector('.my-alert');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // ketika tombol submit diklik
+        // tampilkan tommbol loading, tombol kirim hilang
+        btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then((response) => {
+            // tombol kirim tampil, tombol loading hilang
+            btnLoading.classList.toggle('d-none');
+            btnKirim.classList.toggle('d-none');
+            // tampilkan alert
+            myAlert.classList.toggle('d-none');
+            // reset form
+            form.reset();
+            console.log('Success!', response);
+          })
+          .catch((error) => console.error('Error!', error.message));
+      });
+    </script>
     <!-- Main Js -->
     <script src="js/app.js"></script>
   </body>
